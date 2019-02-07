@@ -1,3 +1,3 @@
 const lookup = require('./index')
 
-console.log(lookup(+351933054547))
+lookup(+351913054547).then(data => console.log(data))

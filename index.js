@@ -6,7 +6,7 @@ const validate = number => {
     return (typeof number === "number")
 }
 
-async function getData (number){
+async function getData(number) {
 
     const options = {
         uri: 'https://phonenumber-lookup.info',
@@ -21,22 +21,19 @@ async function getData (number){
         }
     }
 
+    const string; 
+
     await rp(options)
         .then($ => {
             let country = $('tr:nth-of-type(7) td:nth-of-type(2)').text()
-            let network= $('tr:nth-of-type(8) td:nth-of-type(2)').text()
-            store.set('number', `${network}, ${country}`)
+            let network = $('tr:nth-of-type(8) td:nth-of-type(2)').text()
+            string = `${network}, ${country}`
         })
+
+    return string
 }
 
-async function manipulateData(number) {
-    await getData(number)
-    return store.get('number')
-}
-
-
-
-module.exports = async function lookup (number) {
+module.exports = async function lookup(number) {
     if (!validate(number)) throw new TypeError('Please insert a number')
-    await manipulateData(number)
+    return Promise.resolve(await getData(number))
 }
