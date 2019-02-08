@@ -1,14 +1,6 @@
 const rp = require('request-promise')
 const cheerio = require('cheerio')
 
-/**
- * Verify if is a number
- * @param {*} number - Coming Input
- */
-
-const validateNumber = number => {
-    return (typeof number === "number")
-}
 
 /**
  * Get the info of a number
@@ -18,15 +10,15 @@ const validateNumber = number => {
 async function getInfoNumber(number) {
     // Options for request-promise
     const options = {
-        uri: 'https://phonenumber-lookup.info',
-        body: `phone=${number}`,
+        uri: 'https://www.comfi.com/abook/reverse',
+        body: `phone_number=${number}`,
         method: 'POST',
         headers: {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) Gecko/20100101 Firefox/24.0',
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        transform: function (body) {
-            return cheerio.load(body);
+        transform: async function (body) {
+            return await cheerio.load(body);
         }
     }
 
@@ -34,8 +26,8 @@ async function getInfoNumber(number) {
     
     await rp(options)
         .then($ => {
-            let country = $('tr:nth-of-type(7) td:nth-of-type(2)').text()
-            let network = $('tr:nth-of-type(8) td:nth-of-type(2)').text()
+            let country = $('tr:nth-of-type(2) td:nth-of-type(2)').text()
+            let network = $('tr:nth-of-type(4) td:nth-of-type(2)').text()
             output = `${network}, ${country}`
         })
 
@@ -43,6 +35,5 @@ async function getInfoNumber(number) {
 }
 
 module.exports = async function lookup(number) {
-    if (!validateNumber(number)) throw new TypeError('Please insert a number')
     return Promise.resolve(await getInfoNumber(number))
 }
