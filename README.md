@@ -4,15 +4,15 @@
 
 ## How to install:
 ```
-    npm i phonelookup
-                  or
-    yarn add phonelookup
+    npm i lookup-phone
+                  
+    yarn add lookup-phone
 ```
 
 ## Usage:
 
 ```js
-    const lookup = require('./index')
+    const lookup = require('lookup-phone')
 
     lookup(+351913054547).then(data => {
         console.log(data) // e.g. Vodafone, Portugal
