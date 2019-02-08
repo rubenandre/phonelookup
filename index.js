@@ -4,7 +4,7 @@ const cheerio = require('cheerio')
 
 /**
  * Get the info of a number
- * @param {number} number - Landline/Mobile Number
+ * @param {*} number - Landline/Mobile Number
  */
 
 async function getInfoNumber(number) {
