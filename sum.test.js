@@ -6,8 +6,14 @@ test('Insert the number +35191999999 has to be Vodafone, Portugal', () => {
     })
 })
 
-test('Insert the number +35192999999 has to be Optimus, Portugal', () => {
+test('Insert the number +35193999999 has to be Optimus, Portugal', () => {
     lookup(35193999999).then(data => {
+        expect(data).toBe('Optimus, Portugal')
+    })
+})
+
+test('Insert the number +35193999990 has to be Optimus, Portugal', () => {
+    lookup(35193999990).then(data => {
         expect(data).toBe('Optimus, Portugal')
     })
 })
