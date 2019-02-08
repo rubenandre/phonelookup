@@ -21,19 +21,20 @@ async function getInfoNumber(number) {
             return await cheerio.load(body);
         }
     }
-
-    let output;
     
-    await rp(options)
-        .then($ => {
-            let country = $('tr:nth-of-type(2) td:nth-of-type(2)').text()
-            let network = $('tr:nth-of-type(4) td:nth-of-type(2)').text()
-            output = `${network}, ${country}`
-        })
+    return new Promise((resolve, reject) => {
+        let output;
+        rp(options)
+            .then($ => {
+                let country = $('tr:nth-of-type(2) td:nth-of-type(2)').text()
+                let network = $('tr:nth-of-type(4) td:nth-of-type(2)').text()
+                output = `${network}, ${country}`
+            })
 
-    return output
+        resolve(output)
+    })
 }
 
 module.exports = async function lookup(number) {
-    return Promise.resolve(await getInfoNumber(number))
+    await getInfoNumber(number)
 }
