@@ -22,19 +22,14 @@ async function getInfoNumber(number) {
         }
     }
     
-    return new Promise((resolve, reject) => {
-        let output;
-        rp(options)
-            .then($ => {
-                let country = $('tr:nth-of-type(2) td:nth-of-type(2)').text()
-                let network = $('tr:nth-of-type(4) td:nth-of-type(2)').text()
-                output = `${network}, ${country}`
-            })
-
-        resolve(output)
+    return await rp(options)
+        .then($ => {
+            let country = $('tr:nth-of-type(2) td:nth-of-type(2)').text()
+            let network = $('tr:nth-of-type(4) td:nth-of-type(2)').text()
+            return `${network}, ${country}`
     })
 }
 
 module.exports = async function lookup(number) {
-    await getInfoNumber(number)
+    return Promise.resolve(await getInfoNumber(number))
 }
