@@ -1,7 +1,7 @@
 {
-  "name": "@rubensilva/phonelookup",
+  "name": "phonelookup",
   "version": "1.0.0",
-  "description": "Aplicação node que informa o país e a operadora de um número",
+  "description": "NPM lib to get information about operator and country of a number.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

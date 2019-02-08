@@ -1,13 +1,22 @@
 const rp = require('request-promise')
 const cheerio = require('cheerio')
-const store = require('store')
 
-const validate = number => {
+/**
+ * Verify if is a number
+ * @param {*} number - Coming Input
+ */
+
+const validateNumber = number => {
     return (typeof number === "number")
 }
 
-async function getData(number) {
+/**
+ * Get the info of a number
+ * @param {number} number - Landline/Mobile Number
+ */
 
+async function getInfoNumber(number) {
+    // Options for request-promise
     const options = {
         uri: 'https://phonenumber-lookup.info',
         body: `phone=${number}`,
@@ -21,19 +30,19 @@ async function getData(number) {
         }
     }
 
-    const string; 
-
+    let output;
+    
     await rp(options)
         .then($ => {
             let country = $('tr:nth-of-type(7) td:nth-of-type(2)').text()
             let network = $('tr:nth-of-type(8) td:nth-of-type(2)').text()
-            string = `${network}, ${country}`
+            output = `${network}, ${country}`
         })
 
-    return string
+    return output
 }
 
 module.exports = async function lookup(number) {
-    if (!validate(number)) throw new TypeError('Please insert a number')
-    return Promise.resolve(await getData(number))
+    if (!validateNumber(number)) throw new TypeError('Please insert a number')
+    return Promise.resolve(await getInfoNumber(number))
 }
