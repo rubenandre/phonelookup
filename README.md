@@ -16,7 +16,7 @@
 ```js
     const lookup = require('lookup-phone')
 
-    lookup(351913054547).then(data => {
+    lookup(35191999999).then(data => {
         console.log(data) // e.g. Vodafone, Portugal
     })
 ```
