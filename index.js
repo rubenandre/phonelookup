@@ -1,13 +1,15 @@
+/**
+ * Necessary imports to make library, because data it's requested from a website
+ */
 const rp = require('request-promise')
 const cheerio = require('cheerio')
 
-
 /**
  * Get the info of a number
- * @param {*} number - Landline/Mobile Number
+ * @param {Number} number - Landline/Mobile Number
  */
 
-async function getInfoNumber(number) {
+function getInfoNumber(number) {
     // Options for request-promise
     const options = {
         uri: 'https://www.comfi.com/abook/reverse',
@@ -17,12 +19,12 @@ async function getInfoNumber(number) {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) Gecko/20100101 Firefox/24.0',
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        transform: async function (body) {
-            return await cheerio.load(body);
+        transform: function (body) {
+            return cheerio.load(body);
         }
     }
     
-    return await rp(options)
+    return rp(options)
         .then($ => {
             let country = $('tr:nth-of-type(2) td:nth-of-type(2)').text()
             let network = $('tr:nth-of-type(4) td:nth-of-type(2)').text()
@@ -30,6 +32,6 @@ async function getInfoNumber(number) {
     })
 }
 
-module.exports = async function lookup(number) {
-    return Promise.resolve(await getInfoNumber(number))
+module.exports = function lookup(number) {
+    return Promise.resolve(getInfoNumber(number))
 }
