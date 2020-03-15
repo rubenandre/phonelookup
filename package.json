@@ -1,6 +1,6 @@
 {
   "name": "lookup-phone",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "NPM lib to get information about operator and country of a number.",
   "main": "index.js",
   "scripts": {
@@ -21,11 +21,11 @@
   },
   "homepage": "https://github.com/rubenandre/phonelookup#readme",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "cheerio": "^1.0.0-rc.3",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
   },
   "devDependencies": {
-    "jest": "^24.1.0"
+    "jest": "^25.1.0"
   }
 }
